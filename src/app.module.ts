@@ -1,9 +1,10 @@
 import { Module } from '@nestjs/common';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { ConfigModule } from '@nestjs/config';
-import { Driver } from './drivers/drivers.module';
+import { Driver } from './drivers/driver.model';
 import { VehiclesService } from './vehicles/vehicles.service';
 import { VehiclesModule } from './vehicles/vehicles.module';
+import { Vehicle } from './vehicles/vehicle.model';
 
 @Module({
   controllers: [],
@@ -18,7 +19,7 @@ import { VehiclesModule } from './vehicles/vehicles.module';
       username: process.env.POSTGRES_USER,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DB,
-      models: [Driver],
+      models: [Driver, Vehicle],
       autoLoadModels: true,
     }),
     VehiclesModule,
