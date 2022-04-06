@@ -2,6 +2,8 @@ import { Module } from '@nestjs/common';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { ConfigModule } from '@nestjs/config';
 import { Driver } from './drivers/drivers.module';
+import { VehiclesService } from './vehicles/vehicles.service';
+import { VehiclesModule } from './vehicles/vehicles.module';
 
 @Module({
   controllers: [],
@@ -19,6 +21,8 @@ import { Driver } from './drivers/drivers.module';
       models: [Driver],
       autoLoadModels: true,
     }),
+    VehiclesModule,
   ],
+  providers: [VehiclesService],
 })
 export class AppModule {}
