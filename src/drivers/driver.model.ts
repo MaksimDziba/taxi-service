@@ -1,5 +1,12 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Column, DataType, Model, Table } from 'sequelize-typescript';
+import {
+  BelongsToMany,
+  Column,
+  DataType,
+  Model,
+  Table,
+} from 'sequelize-typescript';
+import { Vehicle } from 'src/vehicles/vehicle.model';
 
 interface DriverCreationsAttrs {
   id: number;
@@ -13,7 +20,7 @@ interface DriverCreationsAttrs {
   transportationAnimals: boolean;
 }
 
-@Table({ tableName: 'Drivers' })
+@Table({ tableName: 'drivers' })
 export class Driver extends Model<Driver, DriverCreationsAttrs> {
   @ApiProperty({ example: '1', description: 'Уникальный идентификатор' })
   @Column({
@@ -64,4 +71,7 @@ export class Driver extends Model<Driver, DriverCreationsAttrs> {
   })
   @Column({ type: DataType.BOOLEAN, defaultValue: false })
   transportationAnimals: boolean;
+
+  @BelongsToMany(() => Vehicle, () => DriverVehicles)
+  vehicles: Vehicle[];
 }
