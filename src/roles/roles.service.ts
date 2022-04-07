@@ -9,11 +9,13 @@ export class RolesService {
 
   async createRole(dto: CreateRoleDto) {
     const role = await this.roleRepository.create(dto);
+
     return role;
   }
 
   async getRoleByValue(value: string) {
     const role = await this.roleRepository.findOne({ where: { value } });
+
     return role;
   }
 }
