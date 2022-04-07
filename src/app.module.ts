@@ -6,6 +6,9 @@ import { VehiclesService } from './vehicles/vehicles.service';
 import { VehiclesModule } from './vehicles/vehicles.module';
 import { Vehicle } from './vehicles/vehicle.model';
 import { DriverVehicles } from './drivers/driver-vehicle.model';
+import { UsersModule } from './users/users.module';
+import { AuthModule } from './auth/auth.module';
+import { RolesModule } from './roles/roles.module';
 
 @Module({
   controllers: [],
@@ -24,6 +27,9 @@ import { DriverVehicles } from './drivers/driver-vehicle.model';
       autoLoadModels: true,
     }),
     VehiclesModule,
+    UsersModule,
+    AuthModule,
+    RolesModule,
   ],
   providers: [VehiclesService],
 })
