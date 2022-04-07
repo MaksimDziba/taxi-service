@@ -5,6 +5,7 @@ import { Driver } from './drivers/driver.model';
 import { VehiclesService } from './vehicles/vehicles.service';
 import { VehiclesModule } from './vehicles/vehicles.module';
 import { Vehicle } from './vehicles/vehicle.model';
+import { DriverVehicles } from './drivers/driver-vehicle.model';
 
 @Module({
   controllers: [],
@@ -19,7 +20,7 @@ import { Vehicle } from './vehicles/vehicle.model';
       username: process.env.POSTGRES_USER,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DB,
-      models: [Driver, Vehicle],
+      models: [Driver, Vehicle, DriverVehicles],
       autoLoadModels: true,
     }),
     VehiclesModule,

@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { CreateVehicleDto } from './dto/create-vehicle.dto';
 import { Vehicle } from './vehicle.model';
@@ -13,6 +13,13 @@ export class VehiclesController {
   @Post()
   create(@Body() vehicleDto: CreateVehicleDto) {
     return this.vehiclesService.createVehicle(vehicleDto);
+  }
+
+  @ApiOperation({ summary: 'Получить транспортное средство по ИД ' })
+  @ApiResponse({ status: 200, type: Vehicle })
+  @Get('/:id')
+  getVehicleByValue(@Param('id') vehicleID: number) {
+    return this.vehiclesService.getVehicleByValue(vehicleID);
   }
 
   @ApiOperation({ summary: 'Получение всех транспортных средств' })

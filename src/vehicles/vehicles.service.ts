@@ -15,6 +15,12 @@ export class VehiclesService {
     return vehicle;
   }
 
+  async getVehicleByValue(id: number) {
+    const vehicle = this.vehicleRepository.findOne({ where: { id } });
+
+    return vehicle;
+  }
+
   async getAllVehicles() {
     const vehicles = await this.vehicleRepository.findAll();
 

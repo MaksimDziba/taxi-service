@@ -10,5 +10,6 @@ import { VehiclesService } from './vehicles.service';
   controllers: [VehiclesController],
   providers: [VehiclesService],
   imports: [SequelizeModule.forFeature([Vehicle, Driver, DriverVehicles])],
+  exports: [VehiclesService],
 })
 export class VehiclesModule {}
