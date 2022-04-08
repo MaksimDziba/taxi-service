@@ -40,7 +40,7 @@ export class Vehicle extends Model<Vehicle, VehicleCreationsAttrs> {
     description: 'дата выпуска автомобиля',
   })
   @Column({ type: DataType.DATE, allowNull: true })
-  dateManufacture: string;
+  dateManufacture: Date;
 
   @ApiProperty({ example: 'ЛАДА 2108', description: 'марка автомобиля' })
   @Column({ type: DataType.STRING, allowNull: true })
@@ -59,7 +59,7 @@ export class Vehicle extends Model<Vehicle, VehicleCreationsAttrs> {
   babyChair: boolean;
 
   @ApiProperty({ example: '3', description: 'макс. кол-во пассажиров' })
-  @Column({ type: DataType.NUMBER, defaultValue: false })
+  @Column({ type: DataType.INTEGER, defaultValue: 0 })
   maxCountPassenger: number;
 
   @BelongsToMany(() => Driver, () => DriverVehicles)
