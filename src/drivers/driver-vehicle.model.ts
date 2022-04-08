@@ -9,7 +9,7 @@ import { Vehicle } from 'src/vehicles/vehicle.model';
 import { Driver } from './driver.model';
 
 @Table({ tableName: 'driver_vehicles', createdAt: false, updatedAt: false })
-export class DriverVehicles extends Model<Driver> {
+export class DriverVehicles extends Model<DriverVehicles> {
   @Column({
     type: DataType.INTEGER,
     unique: true,

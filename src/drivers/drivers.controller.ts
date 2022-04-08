@@ -12,8 +12,8 @@ export class DriversController {
   @ApiOperation({ summary: 'Добавление водителя' })
   @ApiResponse({ status: 200, type: Driver })
   @Post()
-  create(@Body() driverDto: CreateDriverDto) {
-    return this.driverService.createDriver(driverDto);
+  create(@Body() driverDto: CreateDriverDto, vehicleID: number) {
+    return this.driverService.createDriver(driverDto, vehicleID);
   }
 
   @ApiOperation({ summary: 'Получение всех водителей' })

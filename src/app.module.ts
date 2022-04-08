@@ -3,7 +3,6 @@ import { SequelizeModule } from '@nestjs/sequelize';
 import { ConfigModule } from '@nestjs/config';
 import { Driver } from './drivers/driver.model';
 import { DriversModule } from './drivers/drivers.module';
-import { VehiclesService } from './vehicles/vehicles.service';
 import { VehiclesModule } from './vehicles/vehicles.module';
 import { Vehicle } from './vehicles/vehicle.model';
 import { DriverVehicles } from './drivers/driver-vehicle.model';
@@ -36,6 +35,5 @@ import { UserRoles } from './roles/user-roles.model';
     UsersModule,
     RolesModule,
   ],
-  providers: [VehiclesService],
 })
 export class AppModule {}
