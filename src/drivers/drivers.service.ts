@@ -1,31 +1,48 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
-import { VehiclesService } from 'src/vehicles/vehicles.service';
+import sequelize, { FindOptions } from 'sequelize';
 import { Driver } from './driver.model';
 import { CreateDriverDto } from './dto/create-driver.dto';
 
 @Injectable()
 export class DriversService {
-  constructor(
-    @InjectModel(Driver) private driverRepository: typeof Driver,
-    private vehiclesService: VehiclesService,
-  ) {}
+  constructor(@InjectModel(Driver) private driverRepository: typeof Driver) {}
 
-  async createDriver(dto: CreateDriverDto, vehicleID: number) {
+  async createDriver(dto: CreateDriverDto) {
     const driver = await this.driverRepository.create(dto);
-
-    // при создании добавить ид транспортного средства
-    const vehicle = await this.vehiclesService.getVehicleByValue(vehicleID);
-    await driver.$set('vehicles', [vehicle.id]);
 
     return driver;
   }
 
-  async getAllDrivers() {
-    // all - показать все поля.
-    const drivers = await this.driverRepository.findAll({
-      include: { all: true },
-    });
+  async getDriverByValue(id: number) {
+    const driver = this.driverRepository.findOne({ where: { id } });
+
+    return driver;
+  }
+
+  async getDriversListByValue(ids: number[]) {
+    const driver = this.driverRepository.findAll({ where: { id: ids } });
+
+    return driver;
+  }
+
+  async getAllDrivers(options) {
+    const queryParams: FindOptions<Driver> = {
+      include: { all: true }, // all - показать все поля.
+      order: [['name', 'ASC']],
+    };
+
+    if ('search' in options) {
+      queryParams.where = {
+        name: sequelize.where(
+          sequelize.fn('LOWER', sequelize.col('name')),
+          'LIKE',
+          '%' + options.search + '%',
+        ),
+      };
+    }
+
+    const drivers = await this.driverRepository.findAll(queryParams);
 
     return drivers;
   }

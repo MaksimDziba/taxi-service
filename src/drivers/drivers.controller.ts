@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Driver } from './driver.model';
 import { DriversService } from './drivers.service';
@@ -12,14 +12,21 @@ export class DriversController {
   @ApiOperation({ summary: 'Добавление водителя' })
   @ApiResponse({ status: 200, type: Driver })
   @Post()
-  create(@Body() driverDto: CreateDriverDto, vehicleID: number) {
-    return this.driverService.createDriver(driverDto, vehicleID);
+  create(@Body() driverDto: CreateDriverDto) {
+    return this.driverService.createDriver(driverDto);
+  }
+
+  @ApiOperation({ summary: 'Получить водителя по ИД ' })
+  @ApiResponse({ status: 200, type: Driver })
+  @Get('/:id')
+  getVehicleByValue(@Param('id') driverID: number) {
+    return this.driverService.getDriverByValue(driverID);
   }
 
   @ApiOperation({ summary: 'Получение всех водителей' })
   @ApiResponse({ status: 200, type: [Driver] })
   @Get()
-  getAllDrivers() {
-    return this.driverService.getAllDrivers();
+  getAllDrivers(@Query() options) {
+    return this.driverService.getAllDrivers(options);
   }
 }
