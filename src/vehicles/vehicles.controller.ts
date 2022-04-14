@@ -11,8 +11,8 @@ export class VehiclesController {
   @ApiOperation({ summary: 'Добавление транспортного средства' })
   @ApiResponse({ status: 200, type: Vehicle })
   @Post()
-  create(@Body() vehicleDto: CreateVehicleDto) {
-    return this.vehiclesService.createVehicle(vehicleDto);
+  create(@Body() vehicleDto: CreateVehicleDto, drivers: number[]) {
+    return this.vehiclesService.createVehicle(vehicleDto, drivers);
   }
 
   @ApiOperation({ summary: 'Получить транспортное средство по ИД ' })
