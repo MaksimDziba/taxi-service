@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/sequelize';
 import sequelize, { FindOptions } from 'sequelize';
 import { Driver } from './driver.model';
 import { CreateDriverDto } from './dto/create-driver.dto';
+import { DriverDto } from './dto/driver.dto';
 
 @Injectable()
 export class DriversService {
@@ -10,6 +11,14 @@ export class DriversService {
 
   async createDriver(dto: CreateDriverDto) {
     const driver = await this.driverRepository.create(dto);
+
+    return driver;
+  }
+
+  async updateDriver(driverID: number, driverDto: DriverDto) {
+    const driver = await this.driverRepository.update(driverDto, {
+      where: { id: driverID },
+    });
 
     return driver;
   }
@@ -29,7 +38,7 @@ export class DriversService {
   async getAllDrivers(options) {
     const queryParams: FindOptions<Driver> = {
       include: { all: true }, // all - показать все поля.
-      order: [['name', 'ASC']],
+      order: [['id', 'DESC']],
     };
 
     if ('search' in options) {

@@ -1,8 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { CreateVehicleDto } from './dto/create-vehicle.dto';
+import { VehicleDto } from './dto/vehicle.dto';
 import { Vehicle } from './vehicle.model';
 import { DriversService } from '../drivers/drivers.service';
+import { FindOptions } from 'sequelize/types';
 
 @Injectable()
 export class VehiclesService {
@@ -26,6 +28,14 @@ export class VehiclesService {
     return vehicle;
   }
 
+  async updateVehicle(vehicleID: number, vehicleDto: VehicleDto) {
+    const vehicle = await this.vehicleRepository.update(vehicleDto, {
+      where: { id: vehicleID },
+    });
+
+    return vehicle;
+  }
+
   async getVehicleByValue(id: number) {
     const vehicle = await this.vehicleRepository.findOne({
       where: { id },
@@ -43,7 +53,12 @@ export class VehiclesService {
   }
 
   async getAllVehicles() {
-    const vehicles = await this.vehicleRepository.findAll();
+    const queryParams: FindOptions<Vehicle> = {
+      include: { all: true }, // all - показать все поля.
+      order: [['id', 'DESC']],
+    };
+
+    const vehicles = await this.vehicleRepository.findAll(queryParams);
 
     return vehicles;
   }
