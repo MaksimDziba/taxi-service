@@ -1,6 +1,9 @@
 import { ApiProperty } from '@nestjs/swagger';
 
 export class OrderDto {
+  @ApiProperty({ example: '2', description: 'ID заказа' })
+  readonly id: number;
+
   @ApiProperty({
     example: 'г.Иванов, ул.Ленина, д.3, кв. 43',
     description: 'Откуда поедите?',

@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 
 export class ClientDto {
-  @ApiProperty({ example: '2', description: 'ID водителя' })
+  @ApiProperty({ example: '2', description: 'ID клиента' })
   readonly id: number;
 
   @ApiProperty({ example: 'Иванов Иван Иванович', description: 'ФИО' })

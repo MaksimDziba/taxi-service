@@ -20,6 +20,10 @@ import { ClientsModule } from './clients/clients.module';
 import { TariffsController } from './tariffs/tariffs.controller';
 import { TariffsModule } from './tariffs/tariffs.module';
 import { ShiftsModule } from './shifts/shifts.module';
+import { Order } from './orders/order.model';
+import { Client } from './clients/client.model';
+import { Tariff } from './tariffs/tariff.model';
+import { Shift } from './shifts/shift.model';
 
 @Module({
   controllers: [ClientsController, TariffsController],
@@ -34,7 +38,18 @@ import { ShiftsModule } from './shifts/shifts.module';
       username: process.env.POSTGRES_USER,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DB,
-      models: [Driver, Vehicle, DriverVehicles, User, Role, UserRoles],
+      models: [
+        Driver,
+        Vehicle,
+        DriverVehicles,
+        User,
+        Role,
+        UserRoles,
+        Order,
+        Client,
+        Tariff,
+        Shift,
+      ],
       autoLoadModels: true,
     }),
     DriversModule,
@@ -47,6 +62,7 @@ import { ShiftsModule } from './shifts/shifts.module';
     TariffsModule,
     ShiftsModule,
   ],
-  providers: [OrdersService, ClientsService],
+  providers: [],
+  // providers: [OrdersService, ClientsService],
 })
 export class AppModule {}

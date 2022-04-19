@@ -32,7 +32,6 @@ export class TariffsService {
 
   async getAllTariffs() {
     const queryParams: FindOptions<Tariff> = {
-      include: { all: true }, // all - показать все поля.
       order: [['id', 'DESC']],
     };
 
