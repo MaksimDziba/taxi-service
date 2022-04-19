@@ -17,7 +17,7 @@ export class DriversController {
     return this.driverService.createDriver(driverDto);
   }
 
-  @ApiOperation({ summary: 'Добавление транспортного средства' })
+  @ApiOperation({ summary: 'Обновление транспортного средства' })
   @ApiResponse({ status: 200, type: Driver })
   @Put('/:id')
   update(@Param('id') driverID: number, @Body() driverDto: DriverDto) {
