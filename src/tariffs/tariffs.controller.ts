@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateTariffDto } from './dto/create-tariff.dto';
 import { TariffDto } from './dto/tariff.dto';
@@ -36,5 +44,10 @@ export class TariffsController {
   @Get()
   getAllDrivers() {
     return this.tariffService.getAllTariffs();
+  }
+
+  @Delete(':id')
+  remove(@Param('id') id: number) {
+    return this.tariffService.removeTariff(id);
   }
 }
