@@ -1,10 +1,11 @@
 import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
-import { ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateVehicleDto } from './dto/create-vehicle.dto';
 import { VehicleDto } from './dto/vehicle.dto';
 import { Vehicle } from './vehicle.model';
 import { VehiclesService } from './vehicles.service';
 
+@ApiTags('Транспортные средства')
 @Controller('vehicles')
 export class VehiclesController {
   constructor(private vehiclesService: VehiclesService) {}

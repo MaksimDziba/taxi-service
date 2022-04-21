@@ -23,7 +23,7 @@ export class Client extends Model<Client, ClientCreationsAttrs> {
   @Column({ type: DataType.STRING, allowNull: true })
   name: string;
 
-  @ApiProperty({ example: '89159874321', description: 'номер телефона' })
+  @ApiProperty({ example: '89159874321', description: 'Номер телефона' })
   @Column({ type: DataType.STRING, allowNull: true })
   phone: string;
 

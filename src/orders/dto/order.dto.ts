@@ -27,7 +27,7 @@ export class OrderDto {
 
   @ApiProperty({
     example: 'Иванов Иван Иванович',
-    description: 'Предварительная сто-ть заказа',
+    description: 'ФИО оператора',
   })
   readonly operatorName: string;
 }

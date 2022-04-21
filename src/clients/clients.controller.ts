@@ -24,14 +24,14 @@ export class ClientsController {
     return this.clientService.updateClient(clientID, clientDto);
   }
 
-  @ApiOperation({ summary: 'Получить водителя по ИД ' })
+  @ApiOperation({ summary: 'Получить клиента по ИД ' })
   @ApiResponse({ status: 200, type: Client })
   @Get('/:id')
   getVehicleByValue(@Param('id') clientID: number) {
     return this.clientService.getClientByValue(clientID);
   }
 
-  @ApiOperation({ summary: 'Получение всех водителей' })
+  @ApiOperation({ summary: 'Получение всех клиентов' })
   @ApiResponse({ status: 200, type: [Client] })
   @Get()
   getAllClients(@Query() options) {
