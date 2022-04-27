@@ -27,4 +27,10 @@ export class CreateOrderDto {
     description: 'Предварительная сто-ть заказа',
   })
   readonly operatorName: string;
+
+  @ApiProperty({ example: 'true', description: 'Перевозка домашних животных' })
+  readonly transportationAnimals: boolean;
+
+  @ApiProperty({ example: 'true', description: 'Детское кресло' })
+  readonly babyChair: boolean;
 }

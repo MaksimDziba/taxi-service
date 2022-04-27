@@ -30,4 +30,10 @@ export class OrderDto {
     description: 'ФИО оператора',
   })
   readonly operatorName: string;
+
+  @ApiProperty({ example: 'true', description: 'Перевозка домашних животных' })
+  readonly transportationAnimals: boolean;
+
+  @ApiProperty({ example: 'true', description: 'Детское кресло' })
+  readonly babyChair: boolean;
 }

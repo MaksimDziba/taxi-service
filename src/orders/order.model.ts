@@ -58,6 +58,17 @@ export class Order extends Model<Order, OrderCreationsAttrs> {
   preOrderCost: number;
 
   @ApiProperty({
+    example: 'true',
+    description: 'перевозка домашних животных',
+  })
+  @Column({ type: DataType.BOOLEAN, defaultValue: false })
+  transportationAnimals: boolean;
+
+  @ApiProperty({ example: 'true', description: 'детское кресло' })
+  @Column({ type: DataType.BOOLEAN, defaultValue: false })
+  babyChair: boolean;
+
+  @ApiProperty({
     example: 'Иванов Иван Иванович',
     description: 'ФИО оператора',
   })
