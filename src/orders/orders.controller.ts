@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Order } from './order.model';
 import { OrdersService } from './orders.service';
@@ -36,5 +44,10 @@ export class OrdersController {
   @Get()
   getAllOrders() {
     return this.orderService.getAllOrders();
+  }
+
+  @Delete(':id')
+  remove(@Param('id') id: number) {
+    return this.orderService.removeOrder(id);
   }
 }

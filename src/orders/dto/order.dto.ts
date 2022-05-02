@@ -36,4 +36,10 @@ export class OrderDto {
 
   @ApiProperty({ example: 'true', description: 'Детское кресло' })
   readonly babyChair: boolean;
+
+  @ApiProperty({ example: '3', description: 'Клиент ИД' })
+  readonly clientID: number;
+
+  @ApiProperty({ example: '23', description: 'Тариф ИД' })
+  readonly tariffID: number;
 }

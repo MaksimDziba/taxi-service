@@ -18,6 +18,8 @@ interface OrderCreationsAttrs {
   maxCountPassenger: number;
   preOrderCost: number;
   operatorName: string;
+  clientID: number;
+  tariffID: number;
 }
 
 @Table({ tableName: 'orders' })
@@ -45,8 +47,8 @@ export class Order extends Model<Order, OrderCreationsAttrs> {
   @Column({ type: DataType.STRING, allowNull: true })
   addressTo: string;
 
-  @ApiProperty({ example: '10.10.2022 15:30 ', description: 'Время заказа' })
-  @Column({ type: DataType.DATE, allowNull: true })
+  @ApiProperty({ example: '15:30', description: 'Время заказа' })
+  @Column({ type: DataType.TIME, defaultValue: 'NOW()' })
   timeOrder: Date;
 
   @ApiProperty({ example: '3', description: 'Макс. кол-во пассажиров' })

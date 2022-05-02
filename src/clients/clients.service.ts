@@ -45,7 +45,7 @@ export class ClientsService {
     if ('search' in options) {
       queryParams.where = {
         name: sequelize.where(
-          sequelize.fn('LOWER', sequelize.col('name')),
+          sequelize.fn('LOWER', sequelize.col('phone')),
           'LIKE',
           '%' + options.search + '%',
         ),
@@ -55,5 +55,13 @@ export class ClientsService {
     const clients = await this.clientRepository.findAll(queryParams);
 
     return clients;
+  }
+
+  async removeClient(clientID: number) {
+    const client = await this.clientRepository.destroy({
+      where: { id: clientID },
+    });
+
+    return client;
   }
 }

@@ -1,4 +1,13 @@
-import { Body, Controller, Get, Param, Post, Put, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+  Query,
+} from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Client } from './client.model';
 import { ClientsService } from './clients.service';
@@ -36,5 +45,10 @@ export class ClientsController {
   @Get()
   getAllClients(@Query() options) {
     return this.clientService.getAllClients(options);
+  }
+
+  @Delete(':id')
+  remove(@Param('id') id: number) {
+    return this.clientService.removeClient(id);
   }
 }
