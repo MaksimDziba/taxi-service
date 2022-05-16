@@ -14,24 +14,21 @@ export class OrdersService {
   ) {}
 
   async createOrder(dto: CreateOrderDto) {
-    const { clientID, tariffID } = dto;
+    const { client, clientID, tariffID } = dto;
+    let _clientID = clientID;
 
-    let client = { id: clientID };
-
-    const findClient = await this.clientService.getClientByValue(clientID);
-
-    if (!findClient && typeof clientID === 'string') {
-      client = await this.clientService.createClient({
-        name: clientID,
-        phone: clientID,
+    if (!_clientID) {
+      const newClient = await this.clientService.createClient({
+        name: client.phone,
+        phone: client.phone,
       });
-    } else {
-      client = await this.clientService.getClientByValue(clientID);
+
+      _clientID = newClient.id;
     }
 
     const order = await this.orderRepository.create({
       ...dto,
-      clientID: client.id,
+      clientID: _clientID,
       tariffID,
     });
 

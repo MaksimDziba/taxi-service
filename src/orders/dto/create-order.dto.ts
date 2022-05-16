@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { ClientDto } from '../../clients/dto/client.dto';
 
 export class CreateOrderDto {
   @ApiProperty({
@@ -39,4 +40,10 @@ export class CreateOrderDto {
 
   @ApiProperty({ example: '23', description: 'Тариф ИД' })
   readonly tariffID: number;
+
+  @ApiProperty({
+    example: '{ phone: "+7(915) 823-33-22"',
+    description: 'Тариф ИД',
+  })
+  readonly client: ClientDto;
 }
