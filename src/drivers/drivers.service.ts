@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import sequelize, { FindOptions } from 'sequelize';
 import { Driver } from './driver.model';
@@ -26,13 +26,21 @@ export class DriversService {
   async getDriverByValue(id: number) {
     const driver = this.driverRepository.findOne({ where: { id } });
 
-    return driver;
+    if (driver) {
+      return driver;
+    }
+
+    throw new HttpException('Водитель не найден', HttpStatus.NOT_FOUND);
   }
 
   async getDriversListByValue(ids: number[]) {
-    const driver = this.driverRepository.findAll({ where: { id: ids } });
+    const drivers = this.driverRepository.findAll({ where: { id: ids } });
 
-    return driver;
+    if (drivers) {
+      return drivers;
+    }
+
+    throw new HttpException('Водители не найдены', HttpStatus.NOT_FOUND);
   }
 
   async getAllDrivers(options) {
@@ -53,6 +61,10 @@ export class DriversService {
 
     const drivers = await this.driverRepository.findAll(queryParams);
 
-    return drivers;
+    if (drivers) {
+      return drivers;
+    }
+
+    throw new HttpException('Водители не найдены', HttpStatus.NOT_FOUND);
   }
 }
