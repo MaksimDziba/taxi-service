@@ -67,4 +67,25 @@ export class DriversService {
 
     throw new HttpException('Водители не найдены', HttpStatus.NOT_FOUND);
   }
+
+  async getDriversByPhone(phone: string) {
+    const queryParams: FindOptions<Driver> = {
+      include: { all: true }, // all - показать все поля.
+      where: {
+        name: sequelize.where(
+          sequelize.fn('LOWER', sequelize.col('phone')),
+          'LIKE',
+          '%' + phone + '%',
+        ),
+      },
+    };
+
+    const drivers = await this.driverRepository.findOne(queryParams);
+
+    if (drivers) {
+      return drivers;
+    }
+
+    throw new HttpException('Водитель не найден', HttpStatus.NOT_FOUND);
+  }
 }

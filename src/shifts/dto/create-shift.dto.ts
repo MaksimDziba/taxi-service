@@ -1,9 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateShiftDto {
-  @ApiProperty({ example: '2', description: 'ID транспортного средства' })
-  readonly id: number;
-
   @ApiProperty({
     example: 'working - hold - not_working ',
     description: 'Статус водителя',
@@ -30,4 +27,7 @@ export class CreateShiftDto {
 
   @ApiProperty({ example: 'вишневый', description: 'цвет кузова автомобиля' })
   readonly carColor: string;
+
+  @ApiProperty({ example: '2', description: 'Водитель' })
+  readonly driverID: number;
 }

@@ -40,6 +40,13 @@ export class ClientsController {
     return this.clientService.getClientByValue(clientID);
   }
 
+  @ApiOperation({ summary: 'Поиск клиента по телефону' })
+  @ApiResponse({ status: 200, type: Client })
+  @Get('/phone')
+  getDriversByPhone(@Param('phone') phone: string) {
+    return this.clientService.getClientByPhone(phone);
+  }
+
   @ApiOperation({ summary: 'Получение всех клиентов' })
   @ApiResponse({ status: 200, type: [Client] })
   @Get()

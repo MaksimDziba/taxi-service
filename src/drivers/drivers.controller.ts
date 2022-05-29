@@ -24,10 +24,17 @@ export class DriversController {
     return this.driverService.updateDriver(driverID, driverDto);
   }
 
-  @ApiOperation({ summary: 'Получить водителя по ИД ' })
+  @ApiOperation({ summary: 'Поиск водителя по телефону' })
+  @ApiResponse({ status: 200, type: [Driver] })
+  @Get('/phone/')
+  getDriversByPhone(@Query('phone') phone: string) {
+    return this.driverService.getDriversByPhone(phone);
+  }
+
+  @ApiOperation({ summary: 'Получить водителя по ИД' })
   @ApiResponse({ status: 200, type: Driver })
   @Get('/:id')
-  getVehicleByValue(@Param('id') driverID: number) {
+  getDriverByValue(@Param('id') driverID: number) {
     return this.driverService.getDriverByValue(driverID);
   }
 

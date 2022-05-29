@@ -4,10 +4,12 @@ import {
   Column,
   DataType,
   ForeignKey,
+  HasMany,
   Model,
   Table,
 } from 'sequelize-typescript';
 import { Driver } from 'src/drivers/driver.model';
+import { Order } from 'src/orders/order.model';
 
 interface ShiftCreationsAttrs {
   id: number;
@@ -74,4 +76,7 @@ export class Shift extends Model<Shift, ShiftCreationsAttrs> {
     allowNull: false,
   })
   driverID: number;
+
+  @HasMany(() => Order)
+  orders: Order[];
 }

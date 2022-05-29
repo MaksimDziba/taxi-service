@@ -32,9 +32,9 @@ export class UsersService {
     return users;
   }
 
-  async getUserByEmail(email: string) {
+  async getUserByPhone(phone: string) {
     const user = await this.userRepository.findOne({
-      where: { email },
+      where: { phone },
       include: { all: true },
     });
 

@@ -8,6 +8,7 @@ import {
   Table,
 } from 'sequelize-typescript';
 import { Client } from 'src/clients/client.model';
+import { Shift } from 'src/shifts/shift.model';
 import { Tariff } from 'src/tariffs/tariff.model';
 
 interface OrderCreationsAttrs {
@@ -90,4 +91,8 @@ export class Order extends Model<Order, OrderCreationsAttrs> {
   @ForeignKey(() => Client)
   @Column({ type: DataType.INTEGER, allowNull: false })
   clientID: number;
+
+  @ForeignKey(() => Shift)
+  @Column({ type: DataType.INTEGER, allowNull: false })
+  shiftID: number;
 }

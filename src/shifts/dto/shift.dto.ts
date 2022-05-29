@@ -1,6 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { Order } from 'src/orders/order.model';
 
-export class CreateShiftDto {
+export class ShiftDto {
+  @ApiProperty({ example: '2', description: 'ID транспортного средства' })
+  readonly id: number;
+
   @ApiProperty({
     example: 'working - hold - not_working ',
     description: 'Статус водителя',
@@ -11,7 +15,7 @@ export class CreateShiftDto {
     example: '10.10.2008 15:30',
     description: 'Время выхода на смену',
   })
-  readonly startTime: string;
+  readonly startTime: Date;
 
   @ApiProperty({
     example: '1 - 2 - 3 - 4',
@@ -27,4 +31,10 @@ export class CreateShiftDto {
 
   @ApiProperty({ example: 'вишневый', description: 'цвет кузова автомобиля' })
   readonly carColor: string;
+
+  @ApiProperty({ example: '1', description: 'Водитель' })
+  readonly driverID: number;
+
+  @ApiProperty({ example: '4', description: 'Водитель' })
+  readonly ordersID: Order[];
 }

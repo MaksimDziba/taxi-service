@@ -1,6 +1,33 @@
-import { Controller } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { CreateShiftDto } from './dto/create-shift.dto';
+import { ShiftDto } from './dto/shift.dto';
+import { Shift } from './shift.model';
+import { ShiftsService } from './shifts.service';
 
-@ApiTags('Смены')
+@ApiTags('Смена водителя')
 @Controller('shifts')
-export class ShiftsController {}
+export class ShiftsController {
+  constructor(private shiftsService: ShiftsService) {}
+
+  @ApiOperation({ summary: 'Создание смены' })
+  @ApiResponse({ status: 200, type: Shift })
+  @Post()
+  create(@Body() shiftDto: CreateShiftDto) {
+    return this.shiftsService.createShift(shiftDto);
+  }
+
+  @ApiOperation({ summary: 'Получить смену по ИД' })
+  @ApiResponse({ status: 200, type: Shift })
+  @Get('/:id')
+  getShiftByValue(@Param('id') shiftID: number) {
+    return this.shiftsService.getShiftByValue(shiftID);
+  }
+
+  @ApiOperation({ summary: 'Получить смену по ИД' })
+  @ApiResponse({ status: 200, type: Shift })
+  @Put('/:id')
+  update(@Param('id') shiftID: number, @Body() shiftDto: ShiftDto) {
+    return this.shiftsService.updateShift(shiftID, shiftDto);
+  }
+}

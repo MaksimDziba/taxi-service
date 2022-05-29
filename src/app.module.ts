@@ -12,9 +12,7 @@ import { AuthModule } from './auth/auth.module';
 import { Role } from './roles/roles.model';
 import { RolesModule } from './roles/roles.module';
 import { UserRoles } from './roles/user-roles.model';
-import { OrdersService } from './orders/orders.service';
 import { OrdersModule } from './orders/orders.module';
-import { ClientsService } from './clients/clients.service';
 import { ClientsController } from './clients/clients.controller';
 import { ClientsModule } from './clients/clients.module';
 import { TariffsController } from './tariffs/tariffs.controller';
@@ -63,6 +61,5 @@ import { Shift } from './shifts/shift.model';
     ShiftsModule,
   ],
   providers: [],
-  // providers: [OrdersService, ClientsService],
 })
 export class AppModule {}

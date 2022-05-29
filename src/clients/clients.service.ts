@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import sequelize from 'sequelize';
 import { FindOptions } from 'sequelize/types';
@@ -34,6 +34,27 @@ export class ClientsService {
     const client = this.clientRepository.findAll({ where: { id: ids } });
 
     return client;
+  }
+
+  async getClientByPhone(phone: string) {
+    const queryParams: FindOptions<Client> = {
+      include: { all: true }, // all - показать все поля.
+      where: {
+        name: sequelize.where(
+          sequelize.fn('LOWER', sequelize.col('phone')),
+          'LIKE',
+          '%' + phone + '%',
+        ),
+      },
+    };
+
+    const drivers = await this.clientRepository.findOne(queryParams);
+
+    if (drivers) {
+      return drivers;
+    }
+
+    throw new HttpException('Клиент не найден', HttpStatus.NOT_FOUND);
   }
 
   async getAllClients(options) {
