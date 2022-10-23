@@ -13,6 +13,7 @@ import { Role } from './roles/roles.model';
 import { RolesModule } from './roles/roles.module';
 import { UserRoles } from './roles/user-roles.model';
 import { OrdersModule } from './orders/orders.module';
+import { ShiftOrders } from './orders/shift-orders.model';
 import { ClientsController } from './clients/clients.controller';
 import { ClientsModule } from './clients/clients.module';
 import { TariffsController } from './tariffs/tariffs.controller';
@@ -47,6 +48,7 @@ import { Shift } from './shifts/shift.model';
         Client,
         Tariff,
         Shift,
+        ShiftOrders,
       ],
       autoLoadModels: true,
     }),

@@ -1,7 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { FindOptions } from 'sequelize';
+import { Client } from 'src/clients/client.model';
 import { ClientsService } from 'src/clients/clients.service';
+import { Shift } from 'src/shifts/shift.model';
+import { Tariff } from 'src/tariffs/tariff.model';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { OrderDto } from './dto/order.dto';
 import { Order } from './order.model';
@@ -57,7 +60,7 @@ export class OrdersService {
 
   async getAllOrders() {
     const queryParams: FindOptions<Order> = {
-      include: { all: true }, // all - показать все поля.
+      include: [Client, Tariff], // all - показать все поля.
       order: [['id', 'DESC']],
     };
 

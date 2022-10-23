@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import {
   BelongsTo,
+  BelongsToMany,
   Column,
   DataType,
   ForeignKey,
@@ -8,8 +9,10 @@ import {
   Model,
   Table,
 } from 'sequelize-typescript';
-import { Driver } from 'src/drivers/driver.model';
-import { Order } from 'src/orders/order.model';
+import { Driver } from '../drivers/driver.model';
+import { Vehicle } from '../vehicles/vehicle.model';
+import { Order } from '../orders/order.model';
+import { ShiftOrders } from 'src/orders/shift-orders.model';
 
 interface ShiftCreationsAttrs {
   id: number;
@@ -21,6 +24,8 @@ interface ShiftCreationsAttrs {
   contractNumber: number;
   paymentMethod: string;
   transportationAnimals: boolean;
+  driverID: number;
+  vehicleID: number;
 }
 
 @Table({ tableName: 'shifts' })
@@ -35,7 +40,7 @@ export class Shift extends Model<Shift, ShiftCreationsAttrs> {
   id: number;
 
   @ApiProperty({
-    example: 'working - hold - not_working ',
+    example: 'working - finished',
     description: 'Статус водителя',
   })
   @Column({ type: DataType.STRING, allowNull: true })
@@ -47,6 +52,13 @@ export class Shift extends Model<Shift, ShiftCreationsAttrs> {
   })
   @Column({ type: DataType.DATE, allowNull: true })
   readonly startTime: Date;
+
+  @ApiProperty({
+    example: '10.10.2008 15:30',
+    description: 'Время завершения смены',
+  })
+  @Column({ type: DataType.DATE, allowNull: true })
+  readonly endTime: Date;
 
   @ApiProperty({
     example: '1 - 2 - 3 - 4',
@@ -77,6 +89,16 @@ export class Shift extends Model<Shift, ShiftCreationsAttrs> {
   })
   driverID: number;
 
-  @HasMany(() => Order)
+  // @BelongsTo(() => Vehicle)
+  // public vehicle: Vehicle;
+
+  // @ForeignKey(() => Vehicle)
+  // @Column({
+  //   type: DataType.INTEGER,
+  //   allowNull: false,
+  // })
+  // vehicleID: number;
+
+  @BelongsToMany(() => Order, () => ShiftOrders)
   orders: Order[];
 }

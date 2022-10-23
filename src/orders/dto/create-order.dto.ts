@@ -14,6 +14,12 @@ export class CreateOrderDto {
   })
   readonly addressTo: string;
 
+  @ApiProperty({
+    example: 'pending - accepted - process - finished',
+    description: 'статус заказа',
+  })
+  readonly status: string;
+
   @ApiProperty({ example: '10.10.2022 15:30 ', description: 'Время заказа' })
   readonly timeOrder: Date;
 

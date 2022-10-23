@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import {
   BelongsTo,
+  BelongsToMany,
   Column,
   DataType,
   ForeignKey,
@@ -10,11 +11,13 @@ import {
 import { Client } from 'src/clients/client.model';
 import { Shift } from 'src/shifts/shift.model';
 import { Tariff } from 'src/tariffs/tariff.model';
+import { ShiftOrders } from './shift-orders.model';
 
 interface OrderCreationsAttrs {
   id: number;
   addressFrom: string;
   addressTo: string;
+  status: string;
   timeOrder: Date;
   maxCountPassenger: number;
   preOrderCost: number;
@@ -47,6 +50,13 @@ export class Order extends Model<Order, OrderCreationsAttrs> {
   })
   @Column({ type: DataType.STRING, allowNull: true })
   addressTo: string;
+
+  @ApiProperty({
+    example: 'pending - accepted - process - finished',
+    description: 'статус заказа',
+  })
+  @Column({ type: DataType.STRING, allowNull: true })
+  status: string;
 
   @ApiProperty({ example: '15:30', description: 'Время заказа' })
   @Column({ type: DataType.TIME, defaultValue: 'NOW()' })
@@ -92,7 +102,6 @@ export class Order extends Model<Order, OrderCreationsAttrs> {
   @Column({ type: DataType.INTEGER, allowNull: false })
   clientID: number;
 
-  @ForeignKey(() => Shift)
-  @Column({ type: DataType.INTEGER, allowNull: false })
-  shiftID: number;
+  @BelongsToMany(() => Shift, () => ShiftOrders)
+  shift: Shift[];
 }

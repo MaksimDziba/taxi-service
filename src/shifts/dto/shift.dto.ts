@@ -6,7 +6,7 @@ export class ShiftDto {
   readonly id: number;
 
   @ApiProperty({
-    example: 'working - hold - not_working ',
+    example: 'working - finished',
     description: 'Статус водителя',
   })
   readonly status: string;
@@ -16,6 +16,12 @@ export class ShiftDto {
     description: 'Время выхода на смену',
   })
   readonly startTime: Date;
+
+  @ApiProperty({
+    example: '10.10.2008 15:30',
+    description: 'Время завершения смены',
+  })
+  readonly endTime: Date;
 
   @ApiProperty({
     example: '1 - 2 - 3 - 4',
@@ -34,6 +40,9 @@ export class ShiftDto {
 
   @ApiProperty({ example: '1', description: 'Водитель' })
   readonly driverID: number;
+
+  @ApiProperty({ example: '1', description: 'Транспортное средство' })
+  readonly vehicleID: number;
 
   @ApiProperty({ example: '4', description: 'Водитель' })
   readonly ordersID: Order[];

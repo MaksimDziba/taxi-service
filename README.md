@@ -73,8 +73,9 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 Nest is [MIT licensed](LICENSE).
 
 ## Migrate
+
 ```bash
-# test coverage
+# inter to wsl
 $ npx sequelize-cli migration:generate --name user_change_email_to_phone
 
 # enter to docker container

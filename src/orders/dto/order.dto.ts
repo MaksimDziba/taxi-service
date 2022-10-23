@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { Shift } from 'src/shifts/shift.model';
 
 export class OrderDto {
   @ApiProperty({ example: '2', description: 'ID заказа' })
@@ -15,6 +16,12 @@ export class OrderDto {
     description: 'Куда поедите?',
   })
   readonly addressTo: string;
+
+  @ApiProperty({
+    example: 'pending - accepted - process - finished',
+    description: 'статус заказа',
+  })
+  readonly status: string;
 
   @ApiProperty({ example: '10.10.2022 15:30 ', description: 'Время заказа' })
   readonly timeOrder: Date;
@@ -42,4 +49,7 @@ export class OrderDto {
 
   @ApiProperty({ example: '23', description: 'Тариф ИД' })
   readonly tariffID: number;
+
+  @ApiProperty({ example: '23', description: 'Смена водителя' })
+  readonly shifts: Shift[];
 }

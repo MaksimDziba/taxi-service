@@ -2,7 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateShiftDto {
   @ApiProperty({
-    example: 'working - hold - not_working ',
+    example: 'working - finished',
     description: 'Статус водителя',
   })
   readonly status: string;
@@ -11,7 +11,7 @@ export class CreateShiftDto {
     example: '10.10.2008 15:30',
     description: 'Время выхода на смену',
   })
-  readonly startTime: string;
+  readonly startTime: Date;
 
   @ApiProperty({
     example: '1 - 2 - 3 - 4',

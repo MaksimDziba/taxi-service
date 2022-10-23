@@ -17,6 +17,13 @@ export class ShiftsController {
     return this.shiftsService.createShift(shiftDto);
   }
 
+  @ApiOperation({ summary: 'Завершение смены' })
+  @ApiResponse({ status: 200, type: Shift })
+  @Put('/finished')
+  finishedShift() {
+    return this.shiftsService.finishedShift();
+  }
+
   @ApiOperation({ summary: 'Получить смену по ИД' })
   @ApiResponse({ status: 200, type: Shift })
   @Get('/:id')
@@ -24,10 +31,17 @@ export class ShiftsController {
     return this.shiftsService.getShiftByValue(shiftID);
   }
 
-  @ApiOperation({ summary: 'Получить смену по ИД' })
-  @ApiResponse({ status: 200, type: Shift })
-  @Put('/:id')
-  update(@Param('id') shiftID: number, @Body() shiftDto: ShiftDto) {
-    return this.shiftsService.updateShift(shiftID, shiftDto);
+  @ApiOperation({ summary: 'Получение всех водителей' })
+  @ApiResponse({ status: 200, type: [Shift] })
+  @Get()
+  getAllShifts() {
+    return this.shiftsService.getAllShifts();
   }
+
+  // @ApiOperation({ summary: 'Получить смену по ИД' })
+  // @ApiResponse({ status: 200, type: Shift })
+  // @Put('/:id')
+  // update(@Param('id') shiftID: number, @Body() shiftDto: ShiftDto) {
+  //   return this.shiftsService.updateShift(shiftID, shiftDto);
+  // }
 }

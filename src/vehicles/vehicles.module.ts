@@ -14,5 +14,6 @@ import { DriversModule } from '../drivers/drivers.module';
     SequelizeModule.forFeature([Vehicle, Driver, DriverVehicles]),
     DriversModule,
   ],
+  exports: [VehiclesService],
 })
 export class VehiclesModule {}
