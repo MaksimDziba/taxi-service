@@ -19,14 +19,14 @@ export class CreateShiftDto {
   })
   readonly priority: number;
 
-  @ApiProperty({ example: 'А100СМ37', description: 'гос. номер' })
-  readonly gosNumber: string;
+  @ApiProperty({ example: 'вишневый', description: 'цвет кузова автомобиля' })
+  readonly carColor: string;
 
   @ApiProperty({ example: 'ЛАДА 2108', description: 'марка автомобиля' })
   readonly carModel: string;
 
-  @ApiProperty({ example: 'вишневый', description: 'цвет кузова автомобиля' })
-  readonly carColor: string;
+  @ApiProperty({ example: 'А100СМ37', description: 'гос. номер' })
+  readonly carNumber: string;
 
   @ApiProperty({ example: '2', description: 'Водитель' })
   readonly driverID: number;

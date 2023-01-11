@@ -46,17 +46,10 @@ export class AuthService {
     };
   }
 
-  private async generateToken(user: User) {
-    const payload = { phone: user.phone, id: user.id, roles: user.roles };
-
-    return {
-      token: this.jwtService.sign(payload),
-      user: { phone: user.phone, id: user.id, roles: user.roles },
-    };
-  }
-
   private async validateUser(userDto: CreateUserDto) {
     const user = await this.userService.getUserByPhone(userDto.phone);
+    
+    console.log('🚀 ~ AuthService ~ validateUser ~ user', user);
 
     const passwordEquals = await bcrypt.compare(
       userDto.password,
@@ -70,5 +63,14 @@ export class AuthService {
     throw new UnauthorizedException({
       message: 'Некорректный телефон или пароль',
     });
+  }
+
+  private async generateToken(user: User) {
+    const payload = { phone: user.phone, id: user.id, roles: user.roles };
+
+    return {
+      token: this.jwtService.sign(payload),
+      user: { phone: user.phone, id: user.id, roles: user.roles },
+    };
   }
 }

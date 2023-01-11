@@ -23,6 +23,7 @@ import { Order } from './orders/order.model';
 import { Client } from './clients/client.model';
 import { Tariff } from './tariffs/tariff.model';
 import { Shift } from './shifts/shift.model';
+import { GeoModule } from './services/geo/geo.module';
 
 @Module({
   controllers: [ClientsController, TariffsController],
@@ -61,6 +62,7 @@ import { Shift } from './shifts/shift.model';
     ClientsModule,
     TariffsModule,
     ShiftsModule,
+    GeoModule
   ],
   providers: [],
 })

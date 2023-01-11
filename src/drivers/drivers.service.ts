@@ -1,9 +1,10 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import sequelize, { FindOptions } from 'sequelize';
+
 import { Driver } from './driver.model';
-import { CreateDriverDto } from './dto/create-driver.dto';
 import { DriverDto } from './dto/driver.dto';
+import { CreateDriverDto } from './dto/create-driver.dto';
 
 @Injectable()
 export class DriversService {

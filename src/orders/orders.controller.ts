@@ -8,6 +8,7 @@ import {
   Put,
 } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+
 import { Order } from './order.model';
 import { OrdersService } from './orders.service';
 import { CreateOrderDto } from './dto/create-order.dto';
@@ -21,7 +22,7 @@ export class OrdersController {
   @ApiOperation({ summary: 'Создание заказа' })
   @ApiResponse({ status: 200, type: Order })
   @Post()
-  create(@Body() orderDto: CreateOrderDto) {
+  create(@Body() orderDto: CreateOrderDto): Promise<Order> {
     return this.orderService.createOrder(orderDto);
   }
 
@@ -32,7 +33,7 @@ export class OrdersController {
     return this.orderService.updateOrder(orderID, orderDto);
   }
 
-  @ApiOperation({ summary: 'Получить заказа по ИД ' })
+  @ApiOperation({ summary: 'Получить заказ по ИД ' })
   @ApiResponse({ status: 200, type: Order })
   @Get('/:id')
   getVehicleByValue(@Param('id') orderID: number) {

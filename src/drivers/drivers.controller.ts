@@ -1,9 +1,10 @@
 import { Body, Controller, Get, Param, Post, Put, Query } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+
 import { Driver } from './driver.model';
 import { DriversService } from './drivers.service';
-import { CreateDriverDto } from './dto/create-driver.dto';
 import { DriverDto } from './dto/driver.dto';
+import { CreateDriverDto } from './dto/create-driver.dto';
 
 @ApiTags('Водители')
 @Controller('drivers')

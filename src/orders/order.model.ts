@@ -8,8 +8,9 @@ import {
   Model,
   Table,
 } from 'sequelize-typescript';
-import { Client } from 'src/clients/client.model';
+
 import { Shift } from 'src/shifts/shift.model';
+import { Client } from 'src/clients/client.model';
 import { Tariff } from 'src/tariffs/tariff.model';
 import { ShiftOrders } from './shift-orders.model';
 
@@ -17,6 +18,7 @@ interface OrderCreationsAttrs {
   id: number;
   addressFrom: string;
   addressTo: string;
+  location: string;
   status: string;
   timeOrder: Date;
   maxCountPassenger: number;
@@ -50,6 +52,16 @@ export class Order extends Model<Order, OrderCreationsAttrs> {
   })
   @Column({ type: DataType.STRING, allowNull: true })
   addressTo: string;
+
+  @ApiProperty({
+    example: `{
+      from: { lat: '', lon: '' },
+      to: { lat: '', lon: '' }
+    }`,
+    description: 'Геолокация для построения маршрута заказа. Получаем при создании заказа.',
+  })
+  @Column({ type: DataType.JSON })
+  location: string;
 
   @ApiProperty({
     example: 'pending - accepted - process - finished',
@@ -103,5 +115,5 @@ export class Order extends Model<Order, OrderCreationsAttrs> {
   clientID: number;
 
   @BelongsToMany(() => Shift, () => ShiftOrders)
-  shift: Shift[];
+  shift: Shift;
 }

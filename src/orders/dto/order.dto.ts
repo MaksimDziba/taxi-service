@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+
 import { Shift } from 'src/shifts/shift.model';
 
 export class OrderDto {
@@ -7,15 +8,24 @@ export class OrderDto {
 
   @ApiProperty({
     example: 'г.Иванов, ул.Ленина, д.3, кв. 43',
-    description: 'Откуда поедите?',
+    description: 'Место нахождения',
   })
   readonly addressFrom: string;
 
   @ApiProperty({
     example: 'г.Иванов, ул.Ленина, д.3, кв. 43',
-    description: 'Куда поедите?',
+    description: 'Место прибывания',
   })
   readonly addressTo: string;
+
+  @ApiProperty({
+    example: `{
+      from: { lat: number, lon: number },
+      to: { lat: number, lon: number }
+    }`,
+    description: 'Геолокация для построения маршрута заказа. Получаем при создании заказа.',
+  })
+  readonly location: string;
 
   @ApiProperty({
     example: 'pending - accepted - process - finished',
@@ -51,5 +61,5 @@ export class OrderDto {
   readonly tariffID: number;
 
   @ApiProperty({ example: '23', description: 'Смена водителя' })
-  readonly shifts: Shift[];
+  readonly shift: Shift;
 }

@@ -9,23 +9,20 @@ import {
   Model,
   Table,
 } from 'sequelize-typescript';
-import { Driver } from '../drivers/driver.model';
-import { Vehicle } from '../vehicles/vehicle.model';
 import { Order } from '../orders/order.model';
+import { Driver } from '../drivers/driver.model';
 import { ShiftOrders } from 'src/orders/shift-orders.model';
 
 interface ShiftCreationsAttrs {
   id: number;
-  name: string;
-  passport: string;
-  address: string;
-  phone: string;
-  driverLicense: string;
-  contractNumber: number;
-  paymentMethod: string;
-  transportationAnimals: boolean;
+  status: string;
+  startTime: Date;
+  endTime: Date;
+  priority: number;
+  carColor: string;
+  carModel: string;
+  carNumber: string;
   driverID: number;
-  vehicleID: number;
 }
 
 @Table({ tableName: 'shifts' })
@@ -67,17 +64,17 @@ export class Shift extends Model<Shift, ShiftCreationsAttrs> {
   @Column({ type: DataType.INTEGER, allowNull: true })
   readonly priority: number;
 
-  @ApiProperty({ example: 'А100СМ37', description: 'гос. номер' })
+  @ApiProperty({ example: 'вишневый', description: 'цвет кузова автомобиля' })
   @Column({ type: DataType.STRING, allowNull: true })
-  readonly gosNumber: string;
+  readonly carColor: string;
 
   @ApiProperty({ example: 'ЛАДА 2108', description: 'марка автомобиля' })
   @Column({ type: DataType.STRING, allowNull: true })
   readonly carModel: string;
 
-  @ApiProperty({ example: 'вишневый', description: 'цвет кузова автомобиля' })
+  @ApiProperty({ example: 'А100СМ37', description: 'гос. номер' })
   @Column({ type: DataType.STRING, allowNull: true })
-  readonly carColor: string;
+  readonly carNumber: string;
 
   @BelongsTo(() => Driver)
   public driver: Driver;
@@ -88,16 +85,6 @@ export class Shift extends Model<Shift, ShiftCreationsAttrs> {
     allowNull: false,
   })
   driverID: number;
-
-  // @BelongsTo(() => Vehicle)
-  // public vehicle: Vehicle;
-
-  // @ForeignKey(() => Vehicle)
-  // @Column({
-  //   type: DataType.INTEGER,
-  //   allowNull: false,
-  // })
-  // vehicleID: number;
 
   @BelongsToMany(() => Order, () => ShiftOrders)
   orders: Order[];

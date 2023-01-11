@@ -6,6 +6,7 @@ import {
   Model,
   Table,
 } from 'sequelize-typescript';
+
 import { Vehicle } from 'src/vehicles/vehicle.model';
 import { DriverVehicles } from './driver-vehicle.model';
 

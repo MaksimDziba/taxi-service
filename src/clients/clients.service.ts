@@ -2,6 +2,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import sequelize from 'sequelize';
 import { FindOptions } from 'sequelize/types';
+
 import { Client } from './client.model';
 import { ClientDto } from './dto/client.dto';
 import { CreateClientDto } from './dto/create-client.dto';

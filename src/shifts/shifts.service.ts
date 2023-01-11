@@ -1,52 +1,54 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
-import { Shift } from './shift.model';
-import { CreateShiftDto } from './dto/create-shift.dto';
+import sequelize from 'sequelize';
+
 import { DriversService } from '../drivers/drivers.service';
 import { VehiclesService } from '../vehicles/vehicles.service';
-import { ShiftDto } from './dto/shift.dto';
-import sequelize from 'sequelize';
+
+import { Shift } from './shift.model';
+
+import { CreateShiftDto } from './dto/create-shift.dto';
 
 @Injectable()
 export class ShiftsService {
   constructor(
-    @InjectModel(Shift) private shiftRepository: typeof Shift,
+    @InjectModel(Shift) 
+    private shiftRepository: typeof Shift,
     private driverService: DriversService,
-    private vehiclesService: VehiclesService,
   ) {}
 
-  async createShift(dto: CreateShiftDto) {
+  async createShift(data: CreateShiftDto) {
     try {
-      const shift = await this.shiftRepository.create(dto);
+      const shift = await this.shiftRepository.create({
+        ...data,
+        startTime: new Date(),
+        priority: 4,
+      });
 
-      const findDriver = await this.driverService.getDriverByValue(
-        dto.driverID,
+      const driver = await this.driverService.getDriverByValue(
+        data.driverID,
       );
 
-      // const findVehicle = await this.vehiclesService.getVehicleByValue(
-      //   dto.vehicleID,
-      // );
+      await shift.$set('driver', driver);
 
-      shift.driverID = findDriver.id;
-      // shift.vehicleID = findVehicle.id;
-
-      await shift.$set('driverID', findDriver.id);
-      // await shift.$set('vehicleID', findVehicle.id);
-
-      return shift;
+      return shift || {};
     } catch (error) {
+      console.log('🚀 ~ ShiftsService ~ createShift ~ error', error);
+      
       throw new HttpException('Не удалось взять смену', HttpStatus.NOT_FOUND);
     }
   }
 
   async getShiftByValue(id: number) {
-    const shift = this.shiftRepository.findOne({ where: { id } });
-
-    if (shift) {
-      return shift;
+    try {
+      const shift = await this.shiftRepository.findOne({ where: { id } });
+  
+      return shift || {};
+    } catch (error) {
+      console.log('🚀 ~ ShiftsService ~ getShiftByValue ~ error', error);
+      
+      throw new HttpException('Смена не найдена', HttpStatus.NOT_FOUND);
     }
-
-    throw new HttpException('Смена не найдена', HttpStatus.NOT_FOUND);
   }
 
   async getAllShifts() {
@@ -60,7 +62,7 @@ export class ShiftsService {
           ),
         },
       });
-
+      
       const shiftsFinished = await this.shiftRepository.findAll({
         where: {
           status: sequelize.where(
@@ -75,7 +77,9 @@ export class ShiftsService {
         working: shiftsWorking,
         finished: shiftsFinished,
       };
-    } catch {
+    } catch(error) {
+      console.log('🚀 ~ ShiftsService ~ getAllShifts ~ error', error);
+
       throw new HttpException(
         'Не удалось получить смены',
         HttpStatus.NOT_FOUND,
@@ -83,41 +87,30 @@ export class ShiftsService {
     }
   }
 
-  async finishedShift() {
+  async finishedShift(id: number) {
     try {
-      const shiftsWorking = await this.shiftRepository.findOne({
-        where: {
-          status: sequelize.where(
-            sequelize.fn('LOWER', sequelize.col('status')),
-            'LIKE',
-            '%' + 'working' + '%',
-          ),
-        },
-      });
+      const shift = await this.shiftRepository.findOne({ where: { id } });
 
-      if (shiftsWorking) {
+      if (shift) {
         await this.shiftRepository.update(
-          { endTime: new Date(), status: 'finished' },
+          { 
+            endTime: new Date(), 
+            status: 'finished' 
+          },
           {
-            where: { id: shiftsWorking.id },
+            where: { id: shift.id },
           },
         );
 
-        return shiftsWorking;
+        return shift;
       }
-    } catch {
+    } catch(error) {
+      console.log('🚀 ~ ShiftsService ~ finishedShift ~ error', error);
+
       throw new HttpException(
         'Не удалось завершить смену',
         HttpStatus.NOT_FOUND,
       );
     }
   }
-
-  // async updateShift(shiftID: number, shiftDto: ShiftDto) {
-  //   const shift = await this.shiftRepository.update(shiftDto, {
-  //     where: { id: shiftID },
-  //   });
-
-  //   return shift;
-  // }
 }

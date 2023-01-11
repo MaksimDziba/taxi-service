@@ -1,7 +1,6 @@
 import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateShiftDto } from './dto/create-shift.dto';
-import { ShiftDto } from './dto/shift.dto';
 import { Shift } from './shift.model';
 import { ShiftsService } from './shifts.service';
 
@@ -19,9 +18,9 @@ export class ShiftsController {
 
   @ApiOperation({ summary: 'Завершение смены' })
   @ApiResponse({ status: 200, type: Shift })
-  @Put('/finished')
-  finishedShift() {
-    return this.shiftsService.finishedShift();
+  @Put('/:id/finished')
+  update(@Param('id') shiftID: number) {
+    return this.shiftsService.finishedShift(shiftID);
   }
 
   @ApiOperation({ summary: 'Получить смену по ИД' })
@@ -31,17 +30,10 @@ export class ShiftsController {
     return this.shiftsService.getShiftByValue(shiftID);
   }
 
-  @ApiOperation({ summary: 'Получение всех водителей' })
+  @ApiOperation({ summary: 'Получение всех смен' })
   @ApiResponse({ status: 200, type: [Shift] })
   @Get()
   getAllShifts() {
     return this.shiftsService.getAllShifts();
   }
-
-  // @ApiOperation({ summary: 'Получить смену по ИД' })
-  // @ApiResponse({ status: 200, type: Shift })
-  // @Put('/:id')
-  // update(@Param('id') shiftID: number, @Body() shiftDto: ShiftDto) {
-  //   return this.shiftsService.updateShift(shiftID, shiftDto);
-  // }
 }

@@ -6,11 +6,11 @@ import {
   Table,
 } from 'sequelize-typescript';
 
-import { Driver } from './driver.model';
-import { Vehicle } from 'src/vehicles/vehicle.model';
+import { Driver } from 'src/drivers/driver.model';
+import { Shift } from 'src/shifts/shift.model';
 
-@Table({ tableName: 'driver_vehicles', createdAt: false, updatedAt: false })
-export class DriverVehicles extends Model<DriverVehicles> {
+@Table({ tableName: 'driver_shifts', createdAt: false, updatedAt: false })
+export class DriverShifts extends Model<DriverShifts> {
   @Column({
     type: DataType.INTEGER,
     unique: true,
@@ -23,7 +23,7 @@ export class DriverVehicles extends Model<DriverVehicles> {
   @Column({ type: DataType.INTEGER })
   driverID: number;
 
-  @ForeignKey(() => Vehicle)
+  @ForeignKey(() => Shift)
   @Column({ type: DataType.INTEGER })
-  vehicleID: number;
+  shiftID: number;
 }

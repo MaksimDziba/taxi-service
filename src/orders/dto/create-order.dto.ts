@@ -1,18 +1,28 @@
 import { ApiProperty } from '@nestjs/swagger';
+
 import { ClientDto } from '../../clients/dto/client.dto';
 
 export class CreateOrderDto {
   @ApiProperty({
     example: 'г.Иванов, ул.Ленина, д.3, кв. 43',
-    description: 'Откуда поедите?',
+    description: 'Место нахождения',
   })
   readonly addressFrom: string;
 
   @ApiProperty({
     example: 'г.Иванов, ул.Ленина, д.3, кв. 43',
-    description: 'Куда поедите?',
+    description: 'Место прибывания',
   })
   readonly addressTo: string;
+
+  @ApiProperty({
+    example: `{
+      from: { lat: '', lon: '' },
+      to: { lat: '', lon: '' }
+    }`,
+    description: 'Геолокация для построения маршрута заказа. Получаем при создании заказа.',
+  })
+  readonly location: string;
 
   @ApiProperty({
     example: 'pending - accepted - process - finished',
