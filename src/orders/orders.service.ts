@@ -58,10 +58,8 @@ export class OrdersService {
     throw new HttpException('Заказ не найден', HttpStatus.NOT_FOUND);
   }
 
-  // Надо придумать как брать заказы водителю
-
   async getOrderByValue(id: number) {
-    const order = this.orderRepository.findOne({ where: { id } });
+    const order = await this.orderRepository.findOne({ where: { id } });
 
     if (order) {
       return order;
@@ -72,7 +70,7 @@ export class OrdersService {
   }
 
   async getOrdersListByValue(ids: number[]) {
-    const order = this.orderRepository.findAll({ where: { id: ids } });
+    const order = await this.orderRepository.findAll({ where: { id: ids } });
 
     if (order) {
       return order;

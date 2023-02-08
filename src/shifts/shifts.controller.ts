@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put, Query } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateShiftDto } from './dto/create-shift.dto';
 import { Shift } from './shift.model';
@@ -8,11 +8,19 @@ import { ShiftsService } from './shifts.service';
 @Controller('shifts')
 export class ShiftsController {
   constructor(private shiftsService: ShiftsService) {}
+ 
+  @ApiOperation({ summary: 'Назначение водителя на смену' })
+  @ApiResponse({ status: 200, type: Shift })
+  @Post('/assign-order-to-shift/')
+  assignOrderToShift(@Body('orderID') orderID: number, @Body('shiftID') shiftID: number) {
+    return this.shiftsService.assignOrderToShift(orderID, shiftID);
+  }
 
   @ApiOperation({ summary: 'Создание смены' })
   @ApiResponse({ status: 200, type: Shift })
   @Post()
   create(@Body() shiftDto: CreateShiftDto) {
+    console.log('create');
     return this.shiftsService.createShift(shiftDto);
   }
 
@@ -20,6 +28,7 @@ export class ShiftsController {
   @ApiResponse({ status: 200, type: Shift })
   @Put('/:id/finished')
   update(@Param('id') shiftID: number) {
+    console.log('update');
     return this.shiftsService.finishedShift(shiftID);
   }
 
@@ -27,6 +36,7 @@ export class ShiftsController {
   @ApiResponse({ status: 200, type: Shift })
   @Get('/:id')
   getShiftByValue(@Param('id') shiftID: number) {
+    console.log('getShiftByValue');
     return this.shiftsService.getShiftByValue(shiftID);
   }
 
@@ -34,6 +44,7 @@ export class ShiftsController {
   @ApiResponse({ status: 200, type: [Shift] })
   @Get()
   getAllShifts() {
+    console.log('getAllShifts');
     return this.shiftsService.getAllShifts();
   }
 }

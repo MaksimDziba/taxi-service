@@ -49,7 +49,7 @@ export class GeoService {
       }
   }
 
-  async getLocationByAddress(address) {
+  async getLocationByAddress(address: string) {
     const data = await this.getAddressData(address);
 
     const location = data.suggestions.find(location => location.value === address);

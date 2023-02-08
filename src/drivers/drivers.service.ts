@@ -25,17 +25,17 @@ export class DriversService {
   }
 
   async getDriverByValue(id: number) {
-    const driver = this.driverRepository.findOne({ where: { id } });
+    const driver = await this.driverRepository.findOne({ include: { all: true }, where: { id } });
 
     if (driver) {
-      return driver;
+      return driver
     }
 
     throw new HttpException('Водитель не найден', HttpStatus.NOT_FOUND);
   }
 
   async getDriversListByValue(ids: number[]) {
-    const drivers = this.driverRepository.findAll({ where: { id: ids } });
+    const drivers = await this.driverRepository.findAll({ where: { id: ids } });
 
     if (drivers) {
       return drivers;
@@ -81,10 +81,10 @@ export class DriversService {
       },
     };
 
-    const drivers = await this.driverRepository.findOne(queryParams);
+    const driver = await this.driverRepository.findOne(queryParams);
 
-    if (drivers) {
-      return drivers;
+    if (driver) {
+      return driver;
     }
 
     throw new HttpException('Водитель не найден', HttpStatus.NOT_FOUND);

@@ -26,13 +26,13 @@ export class ClientsService {
   }
 
   async getClientByValue(id: number) {
-    const client = this.clientRepository.findOne({ where: { id } });
+    const client = await this.clientRepository.findOne({ where: { id } });
 
     return client;
   }
 
   async getClientsListByValue(ids: number[]) {
-    const client = this.clientRepository.findAll({ where: { id: ids } });
+    const client = await this.clientRepository.findAll({ where: { id: ids } });
 
     return client;
   }

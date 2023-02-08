@@ -48,8 +48,6 @@ export class AuthService {
 
   private async validateUser(userDto: CreateUserDto) {
     const user = await this.userService.getUserByPhone(userDto.phone);
-    
-    console.log('🚀 ~ AuthService ~ validateUser ~ user', user);
 
     const passwordEquals = await bcrypt.compare(
       userDto.password,

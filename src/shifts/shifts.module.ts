@@ -5,6 +5,9 @@ import { SequelizeModule } from '@nestjs/sequelize';
 import { Shift } from './shift.model';
 import { DriversModule } from 'src/drivers/drivers.module';
 import { VehiclesModule } from 'src/vehicles/vehicles.module';
+import { OrdersModule } from 'src/orders/orders.module';
+import { DriverShifts } from 'src/drivers/driver-shifts.model';
+
 import { ShiftOrders } from 'src/orders/shift-orders.model';
 import { Order } from 'src/orders/order.model';
 
@@ -12,9 +15,10 @@ import { Order } from 'src/orders/order.model';
   providers: [ShiftsService],
   controllers: [ShiftsController],
   imports: [
-    SequelizeModule.forFeature([Shift, Order, ShiftOrders]),
+    SequelizeModule.forFeature([Shift, Order, ShiftOrders, DriverShifts]),
     DriversModule,
     VehiclesModule,
+    OrdersModule,
   ],
   exports: [ShiftsService],
 })

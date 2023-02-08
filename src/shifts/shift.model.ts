@@ -5,13 +5,14 @@ import {
   Column,
   DataType,
   ForeignKey,
-  HasMany,
   Model,
   Table,
 } from 'sequelize-typescript';
 import { Order } from '../orders/order.model';
 import { Driver } from '../drivers/driver.model';
 import { ShiftOrders } from 'src/orders/shift-orders.model';
+import { DriverShifts } from 'src/drivers/driver-shifts.model';
+
 
 interface ShiftCreationsAttrs {
   id: number;
@@ -85,6 +86,9 @@ export class Shift extends Model<Shift, ShiftCreationsAttrs> {
     allowNull: false,
   })
   driverID: number;
+
+  @BelongsToMany(() => Driver, () => DriverShifts)
+  drivers: Driver[];
 
   @BelongsToMany(() => Order, () => ShiftOrders)
   orders: Order[];

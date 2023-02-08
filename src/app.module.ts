@@ -6,6 +6,7 @@ import { DriversModule } from './drivers/drivers.module';
 import { VehiclesModule } from './vehicles/vehicles.module';
 import { Vehicle } from './vehicles/vehicle.model';
 import { DriverVehicles } from './drivers/driver-vehicle.model';
+import { DriverShifts } from './drivers/driver-shifts.model';
 import { User } from './users/users.model';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
@@ -42,6 +43,7 @@ import { GeoModule } from './services/geo/geo.module';
         Driver,
         Vehicle,
         DriverVehicles,
+        DriverShifts,
         User,
         Role,
         UserRoles,
