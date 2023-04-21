@@ -58,7 +58,8 @@ export class Order extends Model<Order, OrderCreationsAttrs> {
       from: { lat: '', lon: '' },
       to: { lat: '', lon: '' }
     }`,
-    description: 'Геолокация для построения маршрута заказа. Получаем при создании заказа.',
+    description:
+      'Геолокация для построения маршрута заказа. Получаем при создании заказа.',
   })
   @Column({ type: DataType.JSON })
   location: string;

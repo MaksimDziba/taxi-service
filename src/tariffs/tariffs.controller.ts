@@ -35,14 +35,14 @@ export class TariffsController {
   @ApiOperation({ summary: 'Получить тариф по ИД ' })
   @ApiResponse({ status: 200, type: Tariff })
   @Get('/:id')
-  getVehicleByValue(@Param('id') tariffID: number) {
+  getTariffByValue(@Param('id') tariffID: number) {
     return this.tariffService.getTariffByValue(tariffID);
   }
 
   @ApiOperation({ summary: 'Получить все тарифы' })
   @ApiResponse({ status: 200, type: [Tariff] })
   @Get()
-  getAllDrivers() {
+  getAllTariff() {
     return this.tariffService.getAllTariffs();
   }
 

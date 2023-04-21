@@ -8,11 +8,14 @@ import { ShiftsService } from './shifts.service';
 @Controller('shifts')
 export class ShiftsController {
   constructor(private shiftsService: ShiftsService) {}
- 
-  @ApiOperation({ summary: 'Назначение водителя на смену' })
+
+  @ApiOperation({ summary: 'Связать заказ со сменой' })
   @ApiResponse({ status: 200, type: Shift })
   @Post('/assign-order-to-shift/')
-  assignOrderToShift(@Body('orderID') orderID: number, @Body('shiftID') shiftID: number) {
+  assignOrderToShift(
+    @Body('orderID') orderID: number,
+    @Body('shiftID') shiftID: number,
+  ) {
     return this.shiftsService.assignOrderToShift(orderID, shiftID);
   }
 
@@ -20,7 +23,6 @@ export class ShiftsController {
   @ApiResponse({ status: 200, type: Shift })
   @Post()
   create(@Body() shiftDto: CreateShiftDto) {
-    console.log('create');
     return this.shiftsService.createShift(shiftDto);
   }
 
@@ -28,7 +30,6 @@ export class ShiftsController {
   @ApiResponse({ status: 200, type: Shift })
   @Put('/:id/finished')
   update(@Param('id') shiftID: number) {
-    console.log('update');
     return this.shiftsService.finishedShift(shiftID);
   }
 
@@ -36,7 +37,6 @@ export class ShiftsController {
   @ApiResponse({ status: 200, type: Shift })
   @Get('/:id')
   getShiftByValue(@Param('id') shiftID: number) {
-    console.log('getShiftByValue');
     return this.shiftsService.getShiftByValue(shiftID);
   }
 
@@ -44,7 +44,6 @@ export class ShiftsController {
   @ApiResponse({ status: 200, type: [Shift] })
   @Get()
   getAllShifts() {
-    console.log('getAllShifts');
     return this.shiftsService.getAllShifts();
   }
 }

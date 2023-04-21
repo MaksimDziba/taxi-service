@@ -64,7 +64,7 @@ import { GeoModule } from './services/geo/geo.module';
     ClientsModule,
     TariffsModule,
     ShiftsModule,
-    GeoModule
+    GeoModule,
   ],
   providers: [],
 })

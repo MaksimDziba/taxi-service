@@ -8,7 +8,10 @@ import { CreateDriverDto } from './dto/create-driver.dto';
 
 @Injectable()
 export class DriversService {
-  constructor(@InjectModel(Driver) private driverRepository: typeof Driver) {}
+  constructor(
+    @InjectModel(Driver)
+    private driverRepository: typeof Driver,
+  ) {}
 
   async createDriver(dto: CreateDriverDto) {
     const driver = await this.driverRepository.create(dto);
@@ -25,10 +28,13 @@ export class DriversService {
   }
 
   async getDriverByValue(id: number) {
-    const driver = await this.driverRepository.findOne({ include: { all: true }, where: { id } });
+    const driver = await this.driverRepository.findOne({
+      include: { all: true },
+      where: { id },
+    });
 
     if (driver) {
-      return driver
+      return driver;
     }
 
     throw new HttpException('Водитель не найден', HttpStatus.NOT_FOUND);

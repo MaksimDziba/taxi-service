@@ -12,7 +12,7 @@ import { CreateShiftDto } from './dto/create-shift.dto';
 @Injectable()
 export class ShiftsService {
   constructor(
-    @InjectModel(Shift) 
+    @InjectModel(Shift)
     private shiftRepository: typeof Shift,
     private driverService: DriversService,
     private orderService: OrdersService,
@@ -26,16 +26,14 @@ export class ShiftsService {
         priority: 4,
       });
 
-      const driver = await this.driverService.getDriverByValue(
-        data.driverID,
-      );
+      const driver = await this.driverService.getDriverByValue(data.driverID);
 
       await shift.$set('driver', driver);
 
       return shift;
     } catch (error) {
       console.log('🚀 ~ ShiftsService ~ createShift ~ error', error);
-      
+
       throw new HttpException('Не удалось взять смену', HttpStatus.NOT_FOUND);
     }
   }
@@ -43,11 +41,11 @@ export class ShiftsService {
   async getShiftByValue(id: number) {
     try {
       const shift = await this.shiftRepository.findOne({ where: { id } });
-  
+
       return shift;
     } catch (error) {
       console.log('🚀 ~ ShiftsService ~ getShiftByValue ~ error', error);
-      
+
       throw new HttpException('Смена не найдена', HttpStatus.NOT_FOUND);
     }
   }
@@ -63,7 +61,7 @@ export class ShiftsService {
           ),
         },
       });
-      
+
       const shiftsFinished = await this.shiftRepository.findAll({
         order: [['startTime', 'DESC']],
         where: {
@@ -79,7 +77,7 @@ export class ShiftsService {
         working: shiftsWorking,
         finished: shiftsFinished,
       };
-    } catch(error) {
+    } catch (error) {
       console.log('🚀 ~ ShiftsService ~ getAllShifts ~ error', error);
 
       throw new HttpException(
@@ -92,20 +90,19 @@ export class ShiftsService {
   async finishedShift(id: number) {
     try {
       const shift = await this.shiftRepository.findOne({ where: { id } });
-      console.log('🚀 ~ ShiftsService ~ finishedShift ~ shift', shift);
 
       if (shift) {
         await this.shiftRepository.update(
-          { 
-            endTime: new Date(), 
-            status: 'finished' 
+          {
+            endTime: new Date(),
+            status: 'finished',
           },
           {
             where: { id: shift.id },
           },
         );
       }
-    } catch(error) {
+    } catch (error) {
       console.log('🚀 ~ ShiftsService ~ finishedShift ~ error', error);
 
       throw new HttpException(
@@ -118,9 +115,9 @@ export class ShiftsService {
   async assignOrderToShift(orderID: number, shiftID: number): Promise<void> {
     try {
       const order = await this.orderService.getOrderByValue(orderID);
-  
+
       const shift = await this.getShiftByValue(shiftID);
-  
+
       await shift.$add('orders', order);
     } catch (error) {
       console.log('🚀 ~ ShiftsService ~ assignOrderToShift ~ error', error);

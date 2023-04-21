@@ -28,5 +28,5 @@ export class Client extends Model<Client, ClientCreationsAttrs> {
   phone: string;
 
   @HasMany(() => Order)
-  clientOrders: Order[];
+  orders: Order[];
 }

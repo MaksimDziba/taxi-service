@@ -33,18 +33,25 @@ export class ClientsController {
     return this.clientService.updateClient(clientID, clientDto);
   }
 
+  @ApiOperation({ summary: 'Поиск клиента по телефону' })
+  @ApiResponse({ status: 200, type: Client })
+  @Get('/phone/')
+  getDriversByPhone(@Query('phone') phone: string) {
+    return this.clientService.getClientByPhone(phone);
+  }
+
+  @ApiOperation({ summary: 'Получить заказы клиента по ИД ' })
+  @ApiResponse({ status: 200, type: Client })
+  @Get('/:id/orders/')
+  getClientOrders(@Param('id') clientID: number) {
+    return this.clientService.getClientOrders(clientID);
+  }
+
   @ApiOperation({ summary: 'Получить клиента по ИД ' })
   @ApiResponse({ status: 200, type: Client })
   @Get('/:id')
-  getVehicleByValue(@Param('id') clientID: number) {
+  getClientByValue(@Param('id') clientID: number) {
     return this.clientService.getClientByValue(clientID);
-  }
-
-  @ApiOperation({ summary: 'Поиск клиента по телефону' })
-  @ApiResponse({ status: 200, type: Client })
-  @Get('/phone')
-  getDriversByPhone(@Param('phone') phone: string) {
-    return this.clientService.getClientByPhone(phone);
   }
 
   @ApiOperation({ summary: 'Получение всех клиентов' })

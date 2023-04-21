@@ -22,7 +22,10 @@ export class OrdersService {
   async createOrder(dto: CreateOrderDto) {
     const { client, clientID, tariffID, addressFrom, addressTo } = dto;
 
-    const location = await this.geoService.getGeolocationOrder(addressFrom, addressTo);
+    const location = await this.geoService.getGeolocationOrder(
+      addressFrom,
+      addressTo,
+    );
 
     let _clientID = clientID;
 
@@ -52,9 +55,8 @@ export class OrdersService {
 
     if (order) {
       return order;
-
     }
-  
+
     throw new HttpException('Заказ не найден', HttpStatus.NOT_FOUND);
   }
 
@@ -63,9 +65,8 @@ export class OrdersService {
 
     if (order) {
       return order;
-
     }
-  
+
     throw new HttpException('Заказ не найден', HttpStatus.NOT_FOUND);
   }
 
@@ -74,9 +75,8 @@ export class OrdersService {
 
     if (order) {
       return order;
-
     }
-  
+
     throw new HttpException('Заказ не найден', HttpStatus.NOT_FOUND);
   }
 
@@ -89,7 +89,7 @@ export class OrdersService {
     const orders = await this.orderRepository.findAll(queryParams);
 
     if (orders) {
-      return orders;      
+      return orders;
     }
 
     throw new HttpException('Заказы не найдены', HttpStatus.NOT_FOUND);
@@ -102,9 +102,23 @@ export class OrdersService {
 
     if (order) {
       return order;
-
     }
-  
+
+    throw new HttpException('Заказ не найден', HttpStatus.NOT_FOUND);
+  }
+
+  async orderFinished(orderID: number) {
+    const order = await this.getOrderByValue(orderID);
+
+    const newOrder = await this.updateOrder(orderID, {
+      ...order,
+      status: 'finished',
+    });
+
+    if (newOrder) {
+      return newOrder;
+    }
+
     throw new HttpException('Заказ не найден', HttpStatus.NOT_FOUND);
   }
 }

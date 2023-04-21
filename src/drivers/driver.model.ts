@@ -11,7 +11,6 @@ import { Vehicle } from 'src/vehicles/vehicle.model';
 import { Shift } from 'src/shifts/shift.model';
 import { DriverVehicles } from './driver-vehicle.model';
 import { DriverShifts } from './driver-shifts.model';
-import { ShiftDto } from 'src/shifts/dto/shift.dto';
 
 interface DriverCreationsAttrs {
   id: number;
@@ -76,12 +75,12 @@ export class Driver extends Model<Driver, DriverCreationsAttrs> {
   })
   @Column({ type: DataType.BOOLEAN, defaultValue: false })
   transportationAnimals: boolean;
-  
+
   @BelongsToMany(() => Shift, () => DriverShifts)
   shifts: Shift[];
-  
+
   @BelongsToMany(() => Vehicle, () => DriverVehicles)
   vehicles: Vehicle[];
-  
+
   shift: Shift;
 }

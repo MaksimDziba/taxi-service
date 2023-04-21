@@ -11,7 +11,9 @@ import { Vehicle } from 'src/vehicles/vehicle.model';
 @Module({
   providers: [DriversService],
   controllers: [DriversController],
-  imports: [SequelizeModule.forFeature([Driver, Vehicle, DriverVehicles, DriverShifts])],
+  imports: [
+    SequelizeModule.forFeature([Driver, Vehicle, DriverVehicles, DriverShifts]),
+  ],
   exports: [DriversService],
 })
 export class DriversModule {}

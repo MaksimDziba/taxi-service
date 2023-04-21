@@ -23,7 +23,8 @@ export class OrderDto {
       from: { lat: number, lon: number },
       to: { lat: number, lon: number }
     }`,
-    description: 'Геолокация для построения маршрута заказа. Получаем при создании заказа.',
+    description:
+      'Геолокация для построения маршрута заказа. Получаем при создании заказа.',
   })
   readonly location: string;
 

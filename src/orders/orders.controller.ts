@@ -26,18 +26,25 @@ export class OrdersController {
     return this.orderService.createOrder(orderDto);
   }
 
+  @ApiOperation({ summary: 'Завершение заказа' })
+  @ApiResponse({ status: 200, type: Order })
+  @Put('/:id/finished')
+  orderFinished(@Param('id') id: number) {
+    return this.orderService.orderFinished(id);
+  }
+
   @ApiOperation({ summary: 'Обновление данных о заказе' })
   @ApiResponse({ status: 200, type: Order })
   @Put('/:id')
-  update(@Param('id') orderID: number, @Body() orderDto: OrderDto) {
-    return this.orderService.updateOrder(orderID, orderDto);
+  update(@Param('id') id: number, @Body() orderDto: OrderDto) {
+    return this.orderService.updateOrder(id, orderDto);
   }
 
   @ApiOperation({ summary: 'Получить заказ по ИД ' })
   @ApiResponse({ status: 200, type: Order })
   @Get('/:id')
-  getVehicleByValue(@Param('id') orderID: number) {
-    return this.orderService.getOrderByValue(orderID);
+  getOrderByValue(@Param('id') id: number) {
+    return this.orderService.getOrderByValue(id);
   }
 
   @ApiOperation({ summary: 'Получение всех заказов' })
